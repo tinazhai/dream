@@ -2,6 +2,7 @@ name: "梦"
 output_dir: "."
 navbar:
   title: "梦"
+  pagetitle: "梦"
   right:
     - text: "长篇梦"
       href: index.html
