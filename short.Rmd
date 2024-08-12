@@ -1,5 +1,6 @@
 ---
 title: " "
+pagetitle: 短篇梦
 output:
   html_document:
     toc: false
