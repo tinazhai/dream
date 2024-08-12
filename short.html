@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>short.knit</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">梦</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">长篇梦</a>
+</li>
+<li>
+  <a href="short.html">短篇梦</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="section" class="section level3">
+<h3>1</h3>
+<p>！！！镇楼之梦！！人生唯一一个清明梦发生在小学。吸血鬼在大卖场追我。梦里的我实在太疲倦，不想继续这个梦，就撞柜子上自杀了。梦就结束了。</p>
+</div>
+<div id="section-1" class="section level3">
+<h3>2</h3>
+<p>大波丧尸围攻我们学校，我负责总指挥，采购了一大批塑料狙击枪。派小初二去第一线，我班同学退居第二线。总任务即守住教室。安排男生受后门，女生守前门。看见耗子一群人在打三国杀，防守疲懒，怒目相对。</p>
+</div>
+<div id="section-2" class="section level3">
+<h3>3</h3>
+<p>梦中做了一个梦，发现天空中有只金色的眼睛，和爸爸说真神奇，赶明儿要和同学显摆显摆。梦醒了，是梦。这时候发现空中飞来UFO，有外星人诶！和爸爸说，这回总不是梦了吧，赶明儿显摆显摆。醒了，还是梦。</p>
+</div>
+<div id="section-3" class="section level3">
+<h3>4</h3>
+<p>做了三个梦。第一个是半夜借宿，俩和服女子接待了我们，我妈看出俩人有蹊跷，说穿的和桌上的人偶一毛一样。我当机立断，把俩人爆头，又把布偶戳烂后焚烧。可惜火怎么点也点不着，我就把清凉油作为助燃剂灭了这俩。</p>
+<p>第二个梦。去同学家做客，她妈妈特别能吃，一顿吃三碗饭。他们家有机密在身，我私下说出推论。可能她妈妈被下了慢性毒药，一时不易觉察，时间久了却甚伤身，比如现阶段显现的就是暴饮暴食，日后定会出事。他爸回我俩字，扯淡。梦中夜观天象，有金色鳄鱼一只高悬于空，不知何解。</p>
+<p>第三个梦，放暑假了，大家在寝室里收拾东西。大家都在，已经走读的也在。突然一姑娘拉着箱子走进来说，大家好，我是你们的新室友。突然发现寝室里空出来的那张床是我的4号床，而我在老大的三号床上系蚊帐。毛线说，放暑假后，我们寝一定要叫外卖吃。</p>
+</div>
+<div id="section-4" class="section level3">
+<h3>5</h3>
+<p>昨天做了个特特么乌托邦的梦。冬天学校没有课，没有作业，没有老师。下着小雪，覆满草地，校园美得跟霍格沃兹似的。和机油去小卖部买了个砂锅和粉丝准备吃火锅，却忘了买调料。小伙伴都在打排球，球飞了让我去捡，我就追着球跑啊跑，球停了，我也懒得捡，就躺在雪地里(撒点野)。最后也没吃上粉丝。</p>
+</div>
+<div id="section-5" class="section level3">
+<h3>6</h3>
+<p>话说昨晚做了今年最棒的一个梦。先是我们的城市会时常有怪兽出现，然后窝大学毕业去了一家国企给女老板当秘书，结果发现女老板和某些政党勾结，用DNA技术复制出怪兽(环太情节)，实现政党利益。后来女老板要杀我灭口，但我和我的室友(俩男的)身怀绝技，到大本营和他们玉石俱焚。(此处省略无数动作场面)。结果当兵的都收到风声，发现了从后门逃窜的人，直接一片机关枪。我特么只好回教室乖乖睡觉。至此梦结束。因为早晨醒太早了。又是个烂尾梦。虽然不知道结尾，但根据之前已经出现的情节，我大致可以推测出潜意识勾勒的真相:大boss就是我们高中的某一个男的，开始的谣言就是他散播的。最初大概是看学校不爽，后来一定是他厌恶这个世界，制造怪兽，毁灭，再重建。(根据梦中的我想到了为什么怪兽只在富人区出现这个问题，大boss应有仇富倾向)</p>
+</div>
+<div id="section-6" class="section level3">
+<h3>7</h3>
+<p>梦。去新疆玩。戈壁，荒漠，风成山脉，裸露的红岩，高耸两侧，沿着透视线向前望去，远处是迷蒙的布达拉宫。路上遇见蒙面的伊斯兰哈雷车队，测绘的大学生和游玩的老外。走到一处绿洲，开发成了旅游区，有沿山步道。我选了处不略陡的坡爬，途中有很多奇奇怪怪的关卡，比如穿过一个满是头发的公共澡堂。</p>
+</div>
+<div id="section-7" class="section level3">
+<h3>8</h3>
+<p>昨晚做了个梦，到现在才想起来。（这次是上帝视角了）好像是女主事故断肢了，男主就移植了蜥蜴的DNA给她，结果不仅没有断肢复生，女主一直在蜕皮。然后梦里的情节就一直是女主一直赤裸着躺在床上，撕自己褪下来的皮，男主在一旁帮她一起撕。啊！那个场面真的是。。</p>
+</div>
+<div id="section-8" class="section level3">
+<h3>9</h3>
+<p>昨晚的梦似乎是恐怖片呢。情节回想并不可怕，但身临其境时就比较吓人，比任何恐怖片的效果都来的好。印象尤深的一幕就是我和另一个人共用一个头颅，然后口腔中拔去舌头牙齿，含了两个滑溜溜的塑料眼珠。我倒是很好奇为什么含的不是真眼。</p>
+</div>
+<div id="section-9" class="section level3">
+<h3>10</h3>
+<p>特么梦到变成了杀手，一夜拿手枪毙了五十人，手枪小的和修正带似的，换弹夹烦死了。最后对决大boss，一直找不到换弹夹的机会，被人家激光点追着射。猪队友迟迟不来救场，逼我独自奋战良久。还梦到温碧霞演的财会进行商业诈骗和黎姿的赵敏。打水漂打了九个，同学非说只有八个，差点和他干架。</p>
+</div>
+<div id="section-10" class="section level3">
+<h3>11</h3>
+<p>我昨天做了个梦，大boss崛起了，把次元墙给震塌了。于是各次元的人联合在共同应对世界末日。我记得最后hp的世界灭了，哈利波特挂了，我去DC找蝙蝠家族，还和老爷一起开动员会。最后在X男世界里找到了甘道夫，他说找到了救世主，是一傻缺小姑娘只会瞎弹钢琴，老头非说音符有含义，让大家坐哪儿体悟</p>
+</div>
+<div id="section-11" class="section level3">
+<h3>12</h3>
+<p>住在山上，三个小孩跟着我想图谋不轨。我心一狠就把他们都杀了。没想到没杀死，反而使他们失忆并各自获得不同的超能力。后来就收养了他们。</p>
+</div>
+<div id="section-12" class="section level3">
+<h3>13</h3>
+<p>去网友家见网友，还是个初中的小姑娘呢，母亲大概是死了，和父亲住在小公寓里。去的时候摁门铃没人应，不知怎么得就自己溜进他们家去了。结果发现她父亲是变态，拿着菜刀就要追杀我们。我带着网友，半路抢了辆车就撒丫子跑啊。他爸爸就一路追赶，把自己女儿杀了，我在被杀前醒了。</p>
+</div>
+<div id="section-13" class="section level3">
+<h3>14</h3>
+<p>我现在在梦里越来越机智了。昨儿和我爸在密室各种打怪，打完怪被关在里面出不去了。我就说咱爬窗户吧，因为我做梦从来可以很顺利的爬窗走人，于是我就从三楼的窗户爬下去了。但突然想到，我不会摔死，并不代表别人不会，因为做这个梦的人是我呀！后来我爸在爬窗过程中被怪抓回去了</p>
+</div>
+<div id="section-14" class="section level3">
+<h3>15</h3>
+<p>昨天的梦，故事是彗星来的那一夜。我们班突然发现整个年纪都变成我们班了，然后我就想起电影里面的设定，组织大家紧闭班门，说只要所有人呆在班级里过了十二点，所有事都会恢复原状。但很可惜的是偏偏大家都不遵守，各种窜班打游戏。后来我就心一横，想电影里这么搞也是BE，还不如打开班门随意呢。</p>
+<p>后来过了时间，人员基本都是乱的，但也没有什么事发生，这时候才知道，是校领导搞的活动，我就跑到学生处找张某理论，说他们窃用电影梗是件很无聊的事，接下来展开一段暴露对方智商的谈话。聊完出办公楼已经在下雨了，我冒雨走了一段，和某男生合撑了一把伞，走回了寝室。</p>
+<p>寝室很古怪，没有电梯，要靠一个太空模拟旋转失重仓进寝室，就是科幻片里长得像个蛋型容器的那种。我刚要进其中一个，前位乘客是个小婴儿，奶骚味太重，我就排队等其他的了。<span class="citation">@阿华田脑残粉军团驻JZ军总司令</span> 在我前面，进仓的时候把重力加速度值设成了14.9，然后她就杯具了。梦里好开心啊。</p>
+</div>
+<div id="section-15" class="section level3">
+<h3>16</h3>
+<p>昨天的梦，刚醒好像就忘了大半细节了。下午补课一补补到六点，外面下着大雨，食堂都关门了。我饿得要死，毅然决然出去解决晚饭。撑着伞不知道为什么就回了小学，小学老师看我很不顺眼，要赶我出门，我只好悻悻饿着肚子回班上晚自习。进门大家都盯着我看，我说淋了一身雨，还饿着肚子，悲惨啊。</p>
+<p>熟人一号吃着她的寿司，很奇怪地看向我，你不是刚才吃过了吗？熟人二号给你送的麻辣烫啊。我说见鬼去吧，现在还饿着呢。自动售货机在男厕所，为了果腹，我只好硬着头皮进了厕所，结果进去就被熟人三号(才不会说这个人是谁)等一群男生夹逼了，我说你们干嘛？他说，你为什么要弄死50分久保？</p>
+<p>什么鬼名字？我只知道av大久保？男生说，就是你把他弄死的还能有假？一群人正要抓住我，突然老师来厕所查晚自习了。我们一群人暂时放下异见，合力把门堵上，结果老师的手从门缝里伸进抓住了我的腿。有个好心小哥让我从男厕所后门冲出去，冲进女厕所。我照做了。没想到女厕所里也有埋伏，正好撞上。</p>
+<p>老师也追了进来，我只好跳窗跑路，临走前大喊，如果是我干的我会承认！当然除非我是精神分裂，那另当别论。跳到一楼，居然有辆空车？老师探个脑袋说，你很早就准备了辆房车，里面有假证钱和干粮。一听这话我就跳上了车，开上国道。后来因为车技不佳，车被我撞烂了。沿路一直偷别人的哈雷，开向远方。</p>
+</div>
+<div id="section-16" class="section level3">
+<h3>17</h3>
+<p>昨天做梦梦到cure来浅水湾开场，买了票，只要300。但是和月考时间重了，但是可以去看一个小时，再去语文月考一个小时。后来因为懒，又没去刷场，也没去月考。这个梦揭示了一个真理。。我的懒宅属性远大于学习，远大于欧巴。我现在很心塞</p>
+</div>
+<div id="section-17" class="section level3">
+<h3>18</h3>
+<p>昨天做了个最近最开心的梦。。和大家一起玩啊，一开始怎么玩的不记得了，就记得后来我提议去书店，我们就去书店了。哇，那个书店好大，种类好多，氛围好好，像歪国图书馆啊。还有设中国非遗展览啊。作为一个现实生活中八百年没好好逛过书店的人，梦里就是各个板块兜一兜一本满足啊！</p>
+</div>
+<div id="section-18" class="section level3">
+<h3>19</h3>
+<p>昨天做梦去一个小岛旅游，政府被民众哄下台，很多极端分子抢了军械库为非作歹。变成了无政府状态，警察基本都死了，也没有军队支持。走在路上，无辜的平民会被歹徒连开数枪残忍的射杀。我和小伙伴躲进一家五星酒店，里面来度假的老外还不知道外面发生了什么，我只好用英语和他解释，老外大受震惊。</p>
+<p>违法分子逐渐变成了一支无政府武装，我和小伙伴想一定要消灭恶势力，就组织了反抗的游击组织，一开始只有三个人。我们为表决心第一件事就是入侵某局，只要翻过铁丝网，记住随机曲目的音符并复述就能成功了。后来大家开始暗中印发小册子，大半夜出去宣传，制定反抗计划。</p>
+<p>我们首先入侵了他们的军械库，能偷的都偷了，还顺便偷了图纸，又多次潜入内部打听情报。后来又去找大学化工系的学生让他们帮我们制造军火和毒药，我们的反抗势力逐渐形成。【故事没有结局，如往常一样又是个烂尾梦【我想说我是个很有正义感的人</p>
+<p><br></p>
+</div>
+
+<hr />
+<p style="text-align:center; font-size:6pt; font-family: Verdana; line-height: 0.5">
+  原发于豆瓣@rum1412
+</p>
+<p style="text-align:center; font-size:5pt; font-family: Verdana; line-height: 0.5">
+  <script language="Javascript">
+document.write("Last Updated on: " + document.lastModified +"");
+</SCRIPT>
+</p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
